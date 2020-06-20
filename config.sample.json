@@ -1,0 +1,17 @@
+{
+  "Port": "24212",
+  "OAuthCallback": "https://tpbt.oxodao.fr",
+  "ClientID": "dev.twitch.tv",
+  "ClientSecret": "",
+  "Database": {
+    "Host": "localhost",
+    "Port": "5432",
+    "Username": "tpbt",
+    "Password": "tpbt",
+    "Database": "tpbt"
+  },
+  "Bot": {
+    "Username": "TwitchPlaysBlindTest",
+    "Secret": "https://twitchapps.com/tmi/"
+  }
+}
