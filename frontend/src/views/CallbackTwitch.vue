@@ -72,7 +72,6 @@
     .box .spinner {
         height: 40px;
         width: 40px;
-        background: rgba(0, 0, 0, .2);
         border-radius: 50%;
 
         transform: scale(0);

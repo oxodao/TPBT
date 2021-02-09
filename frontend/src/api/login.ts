@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {HOST} from './main'
 
 export function APILogin(dispatch: Function, redirect: Function, code: string|null) {
