@@ -12,7 +12,7 @@ var (
 
 func Initialize(prv *services.Provider) {
 	Configuration = &oauth2.Config {
-		RedirectURL: "http://localhost:8081/#/auth/callback",
+		RedirectURL: prv.Config.OAuthCallback+"/#/auth/callback",
 		ClientID: prv.Config.ClientID,
 		ClientSecret: prv.Config.ClientSecret,
 		Endpoint: twitch.Endpoint,

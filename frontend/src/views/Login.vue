@@ -2,7 +2,7 @@
   <div class="login">
     <img src="../assets/logo_twitch.png" alt="Twitch logo" />
     <h3>Twitch Plays Blind test</h3>
-    <a href="http://localhost:24212/auth/login">Login</a>
+    <a href="/auth/login">Login</a>
   </div>
 </template>
 

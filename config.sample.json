@@ -1,5 +1,6 @@
 {
   "Port": "24212",
+  "OAuthCallback": "https://tpbt.oxodao.fr",
   "ClientID": "dev.twitch.tv",
   "ClientSecret": "",
   "Database": {

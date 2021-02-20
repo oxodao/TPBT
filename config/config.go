@@ -6,19 +6,20 @@ import (
 )
 
 type Configuration struct {
-	Port string
-	ClientID string
-	ClientSecret string
-	Database struct {
-		Host string
-		Port string
+	Port          string
+	OAuthCallback string
+	ClientID      string
+	ClientSecret  string
+	Database      struct {
+		Host     string
+		Port     string
 		Username string
 		Password string
 		Database string
 	}
 	Bot struct {
 		Username string
-		Secret string
+		Secret   string
 	}
 }
 
