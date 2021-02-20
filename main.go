@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
-	"tpbt/configuration"
+	"tpbt/config"
 	"tpbt/oauth"
 	"tpbt/services"
 
@@ -17,7 +17,7 @@ const (
 
 func main() {
 	fmt.Printf("TwitchPlaysBlindTest [v%v] by %v\n", tpbtVersion, tpbtAuthor)
-	cfg, err := configuration.LoadConfiguration()
+	cfg, err := config.LoadConfiguration()
 	if err != nil {
 		panic(err)
 	}

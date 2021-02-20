@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"github.com/gempir/go-twitch-irc/v2"
 	"github.com/jmoiron/sqlx"
-	"tpbt/configuration"
+	"tpbt/config"
 )
 
 type Provider struct {
-	Config *configuration.Configuration
+	Config *config.Configuration
 	DB *sqlx.DB
 	Twitch *twitch.Client
 }
 
-func NewProvider(cfg *configuration.Configuration) (*Provider, error) {
+func NewProvider(cfg *config.Configuration) (*Provider, error) {
 	prv := &Provider {
 		Config: cfg,
 	}
