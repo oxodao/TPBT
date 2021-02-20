@@ -69,6 +69,9 @@ func ProcessToggleTurn(prv *services.Provider, user *models.BTStreamer, cmd *mod
 
 		_ = SendCommand(user, "SET_FOUND", game.Players)
 
+		if game.IsTimed {
+		}
+
 		prv.Twitch.Say(user.TwitchName, "C'est parti ! Écoutez la musique et devinez le titre et l'artiste.")
 	}
 

@@ -26,3 +26,18 @@ type BTStreamer struct {
 	MutexWS      *sync.Mutex     `json:"-" db:"-"`
 }
 
+func (s BTStreamer) GetTableName() string {
+	return "TWITCH_USERS"
+}
+
+func (s BTStreamer) GetCreationScript() string {
+	return `CREATE TABLE TWITCH_USERS (
+		  TW_ID          TEXT PRIMARY KEY,
+		  TW_NAME        TEXT,
+		  APP_TOKEN      TEXT,
+		  ACCESS_TOKEN   TEXT,
+		  REFRESH_TOKEN  TEXT,
+		  BOT_IN_CHANNEL BOOLEAN NOT NULL DEFAULT false,
+		  GRP_ID         INTEGER CONSTRAINT fk_usr_grp REFERENCES GROUPS(GRP_ID)
+	);`
+}

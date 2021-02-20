@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 	"tpbt/config"
+	"tpbt/dal"
+	"tpbt/fixtures"
 	"tpbt/oauth"
 	"tpbt/services"
 
@@ -29,6 +31,13 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("- Provider initialized")
+
+	if dal.ShouldInitializeDatabase(prv) {
+		err := fixtures.InitializeDatabase(prv)
+		if err != nil {
+			panic(err)
+		}
+	}
 
 	oauth.Initialize(prv)
 

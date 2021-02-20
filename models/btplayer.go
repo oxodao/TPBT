@@ -23,3 +23,14 @@ func (p *BTPlayer) SetFoundArtist() {
 	p.ArtistFound = true
 	p.ArtistFoundAt = p.Game.TimeLeft
 }
+
+func (p BTPlayer) GetTableName() string {
+	return "VIEWER"
+}
+
+func (p BTPlayer) GetCreationScript() string {
+	return ` CREATE TABLE VIEWER (
+		TW_ID TEXT PRIMARY KEY,
+		LAST_KNOWN_USERNAME TEXT
+	);`
+}
