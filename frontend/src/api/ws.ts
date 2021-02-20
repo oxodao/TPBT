@@ -29,7 +29,7 @@ function parseMessage(commit: Function, message: any) {
 
 export default function connectWebsocket(token: string, commit: Function): WebSocket {
     const protocol = window.location.protocol === "https:" ? "s" : "";
-    const url = "ws" + protocol + "://" + location.host + "/";
+    const url = "ws" + protocol + "://" + location.host + "/connect/" + token;
     const ws     = new WebSocket(url)
 
     ws.onmessage = (e) => parseMessage(commit, e.data);
