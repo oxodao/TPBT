@@ -8,6 +8,7 @@ import (
 
 func InitializeDatabase(prv *services.Provider) error {
 	tables := []models.DbModel{
+		initializedDatabase{},
 		group{},
 		models.BTStreamer{},
 		models.BTPlayer{},

@@ -71,6 +71,11 @@ export default new Vuex.Store({
         },
         setFound: (state, scores) => {
             Vue.set(state.AppState, 'Found', scores);
+        },
+        countdownTick: (state) => {
+            Vue.set(state.User.Game, 'TimeLeft', state.User.Game.TimeLeft-1);
+            if (state.User.Game.TimeLeft === 0)
+                Vue.set(state.User.Game, 'Running', false);
         }
     },
     actions:   {
@@ -105,7 +110,6 @@ export default new Vuex.Store({
             Router.push({name: 'Game'})
         },
         toggleBot({state}) {
-            console.log("Toggle bot")
             state.AppState.Websocket!.send(JSON.stringify({
                 Command: 'TOGGLE_BOT',
                 Arguments: '{}'
@@ -125,7 +129,7 @@ export default new Vuex.Store({
                 Command: 'TOGGLE_TURN',
                 Arguments: JSON.stringify(args)
             }))
-        }
+        },
     },
     modules:   {},
     getters: {

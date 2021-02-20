@@ -34,28 +34,7 @@ func ProcessToggleBot(prv *services.Provider, user *models.BTStreamer, cmd *mode
 
 func ProcessToggleTurn(prv *services.Provider, user *models.BTStreamer, cmd *models.Command) {
 	if user.Game.Running {
-		user.Game.Running = false
-
-		scores, err := dal.FetchScoreboard(prv, user)
-		if err != nil {
-			fmt.Println("Something went wrong fetching scores")
-		} else {
-			_ = SendCommand(user, "SET_LEADERBOARD", scores)
-		}
-
-		lbTurn := "La manche est terminé. La musique était " + user.Game.Title + " de " + user.Game.Artist + "."
-		length := len(user.Game.Players)
-		if  length > 0 {
-			if length == 1 {
-				lbTurn = lbTurn + " Le gagnant est " + user.Game.Players[0].Name
-			} else if length == 2 {
-				lbTurn = lbTurn + " Voici le podium: #1 " + user.Game.Players[0].Name + ", #2 " + user.Game.Players[1].Name
-			} else {
-				lbTurn = lbTurn + " Voici le podium: #1 " + user.Game.Players[0].Name + ", #2 " + user.Game.Players[1].Name + ", #3 " + user.Game.Players[2].Name
-			}
-		}
-
-		prv.Twitch.Say(user.TwitchName, lbTurn)
+		concludeGame(user, prv)
 	} else {
 		game := &models.Game{}
 		err := json.Unmarshal([]byte(cmd.Arguments), game)
@@ -70,10 +49,40 @@ func ProcessToggleTurn(prv *services.Provider, user *models.BTStreamer, cmd *mod
 		_ = SendCommand(user, "SET_FOUND", game.Players)
 
 		if game.IsTimed {
+			game.TimeLeft = game.TimeSet
+			go RunCountdown(game, user, func() {
+				concludeGame(user, prv)
+			})
 		}
 
 		prv.Twitch.Say(user.TwitchName, "C'est parti ! Écoutez la musique et devinez le titre et l'artiste.")
 	}
 
 	_ = SendCommand(user, "SET_GAME", user.Game)
+}
+
+func concludeGame(user *models.BTStreamer, prv *services.Provider) {
+	fmt.Println("Concluding a game")
+	user.Game.Running = false
+
+	scores, err := dal.FetchScoreboard(prv, user)
+	if err != nil {
+		fmt.Println("Something went wrong fetching scores")
+	} else {
+		_ = SendCommand(user, "SET_LEADERBOARD", scores)
+	}
+
+	lbTurn := "La manche est terminé. La musique était " + user.Game.Title + " de " + user.Game.Artist + "."
+	length := len(user.Game.Players)
+	if  length > 0 {
+		if length == 1 {
+			lbTurn = lbTurn + " Le gagnant est " + user.Game.Players[0].Name
+		} else if length == 2 {
+			lbTurn = lbTurn + " Voici le podium: #1 " + user.Game.Players[0].Name + ", #2 " + user.Game.Players[1].Name
+		} else {
+			lbTurn = lbTurn + " Voici le podium: #1 " + user.Game.Players[0].Name + ", #2 " + user.Game.Players[1].Name + ", #3 " + user.Game.Players[2].Name
+		}
+	}
+
+	prv.Twitch.Say(user.TwitchName, lbTurn)
 }

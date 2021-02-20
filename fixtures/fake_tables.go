@@ -29,3 +29,16 @@ func (sc scoreboard) GetCreationScript() string {
 		  PRIMARY KEY (VIEWER_ID, STREAMER_ID)
 	);`
 }
+
+
+
+
+type initializedDatabase struct {}
+
+func (id initializedDatabase) GetTableName() string {
+	return "INITIALIZED_DATABASE"
+}
+
+func (id initializedDatabase) GetCreationScript() string {
+	return `CREATE TABLE INITIALIZED_DATABASE (ID INTEGER);`
+}

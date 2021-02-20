@@ -1,5 +1,3 @@
-import {SERVER} from "./main";
-
 function parseMessage(commit: Function, message: any) {
     console.log(message)
     const command = JSON.parse(message);
@@ -21,6 +19,9 @@ function parseMessage(commit: Function, message: any) {
         case 'SET_FOUND':
             commit('setFound', args)
             break;
+        case 'COUNTDOWN_TICK':
+            commit('countdownTick')
+            break
         default:
             console.log("UNHANDLED COMMAND: ", command.Command);
             break;
