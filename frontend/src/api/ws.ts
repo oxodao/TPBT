@@ -28,7 +28,9 @@ function parseMessage(commit: Function, message: any) {
 }
 
 export default function connectWebsocket(token: string, commit: Function): WebSocket {
-    const ws     = new WebSocket(`ws://${SERVER}/connect/${token}`)
+    const protocol = window.location.protocol === "https:" ? "s" : "";
+    const url = "ws" + protocol + "://" + location.host + "/";
+    const ws     = new WebSocket(url)
 
     ws.onmessage = (e) => parseMessage(commit, e.data);
     ws.onerror   = (e) => console.log("Err: ", e);

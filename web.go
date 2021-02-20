@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/markbates/pkger"
 	"log"
 	"net/http"
 	"sync"
@@ -130,12 +131,16 @@ func RunServer(prv *services.Provider) {
 		ListenWS(prv, user)
 	})
 
+	r.PathPrefix("/").Handler(http.FileServer(pkger.Dir("/data")))
+
 	srv := &http.Server{
 		Handler:      r,
 		Addr:         fmt.Sprintf("0.0.0.0:%v", prv.Config.Port),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
+
+	fmt.Println("- Server is running")
 
 	log.Fatal(srv.ListenAndServe())
 }

@@ -22,10 +22,13 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Println("- Configuration loaded")
+
 	prv, err := services.NewProvider(cfg)
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("- Provider initialized")
 
 	oauth.Initialize(prv)
 

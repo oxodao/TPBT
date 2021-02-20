@@ -16,6 +16,7 @@ var (
 )
 
 func ConfigureBot(prv *services.Provider) {
+	fmt.Println("- Configuring bot...")
 	prv.Twitch.OnPrivateMessage(OnPrivateMessage(prv))
 
 	var err error
@@ -33,6 +34,7 @@ func ConfigureBot(prv *services.Provider) {
 		prv.Twitch.Join(c)
 	}
 
+	fmt.Println("- Bot configured")
 	err = prv.Twitch.Connect()
 	if err != nil {
 		panic(err)

@@ -1,24 +1,23 @@
 version: '3.1'
 
 services:
+  tpbt:
+    image: oxodao/tpbt
+    restart: unless-stopped
+    volumes:
+      - "./config.json:/config.json"
+    ports:
+      - 24212:24212
+
   db:
     image: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: tpbt
       POSTGRES_PASSWORD: tpbt
       POSTGRES_DB: tpbt
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-        - pgdata
+        - /tmp/database:/var/lib/postgresql/data/pgdata
     ports:
         - 5432:5432
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
-volumes:
-    pgdata:
